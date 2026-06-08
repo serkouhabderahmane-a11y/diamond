@@ -33,6 +33,12 @@ body {
   overscroll-behavior: none;
 }
 
+/* Ensure page content is always on top of any lingering overlays */
+#__next, main, [data-main] {
+  position: relative;
+  z-index: 1;
+}
+
 html.lenis, html.lenis body { height: auto; min-height: 0; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
