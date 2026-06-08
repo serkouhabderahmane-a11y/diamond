@@ -8,8 +8,12 @@ import DiamondPattern from "./DiamondPattern";
 
 export default function FinalCTA() {
   const [mounted, setMounted] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   return (
     <section id="contact" className="relative py-32 md:py-40 overflow-hidden">
@@ -25,7 +29,7 @@ export default function FinalCTA() {
       {/* Particles */}
       {mounted && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(isTouch ? 5 : 15)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-[2px] h-[2px] bg-white/20"

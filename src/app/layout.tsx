@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   keywords: ["thiết kế web", "phát triển ứng dụng", "chuyển đổi số", "agency công nghệ", "mobile app", "UI/UX design", "digital marketing"],
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +38,11 @@ export default function RootLayout({
       lang="vi"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="bg-diamond-navy text-white font-sans antialiased overflow-x-hidden">
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+      </head>
+      <body className="bg-diamond-navy text-white font-sans antialiased">
         <DiamondLoading />
         <SmoothScroll>
           <Navbar />

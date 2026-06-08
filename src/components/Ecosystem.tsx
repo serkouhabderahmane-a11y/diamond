@@ -13,6 +13,8 @@ const diamondNodes = [
   { icon: HiCube, label: "Enterprise Software", angle: 300, color: "#00CFFF" },
 ];
 
+const uid = "eco";
+
 export default function Ecosystem() {
   return (
     <section className="section-padding relative overflow-hidden">
@@ -39,20 +41,18 @@ export default function Ecosystem() {
         </motion.div>
 
         <div className="relative max-w-3xl mx-auto aspect-square flex items-center justify-center">
-          {/* Diamond-shaped connection lines */}
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 500">
             <defs>
-              <linearGradient id="ecoLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id={`${uid}LineGrad`} x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#0A5BFF" />
                 <stop offset="100%" stopColor="#00CFFF" />
               </linearGradient>
             </defs>
 
-            {/* Outer diamond ring */}
             <motion.polygon
               points="250,30 430,150 430,350 250,470 70,350 70,150"
               fill="none"
-              stroke="url(#ecoLineGrad)"
+              stroke={`url(#${uid}LineGrad)`}
               strokeWidth="1"
               strokeDasharray="6 6"
               initial={{ pathLength: 0, opacity: 0 }}
@@ -61,11 +61,10 @@ export default function Ecosystem() {
               transition={{ duration: 2, ease: "easeInOut" }}
             />
 
-            {/* Inner diamond */}
             <motion.polygon
               points="250,80 390,180 390,320 250,420 110,320 110,180"
               fill="none"
-              stroke="url(#ecoLineGrad)"
+              stroke={`url(#${uid}LineGrad)`}
               strokeWidth="0.5"
               strokeDasharray="4 8"
               initial={{ pathLength: 0, opacity: 0 }}
@@ -74,7 +73,6 @@ export default function Ecosystem() {
               transition={{ duration: 2, delay: 0.3 }}
             />
 
-            {/* Connector lines from center to nodes */}
             {diamondNodes.map((_, i) => {
               const angle = (i * 60 - 90) * (Math.PI / 180);
               const x = 250 + 160 * Math.cos(angle);
@@ -84,7 +82,7 @@ export default function Ecosystem() {
                   key={i}
                   x1={250} y1={250}
                   x2={x} y2={y}
-                  stroke="url(#ecoLineGrad)"
+                  stroke={`url(#${uid}LineGrad)`}
                   strokeWidth="1.5"
                   strokeDasharray="5 5"
                   initial={{ pathLength: 0, opacity: 0 }}
@@ -101,19 +99,20 @@ export default function Ecosystem() {
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="relative z-10"
+            className="relative z-10 safari-gpu"
           >
             <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-diamond-blue/20 via-transparent to-diamond-cyan/20 blur-2xl" />
               <img
                 src="/img/logoDDwhite.png"
                 alt="Diamond Digital"
-                className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(10,91,255,0.3)]"
+                className="w-full h-full object-contain"
+                style={{ filter: "drop-shadow(0 0 20px rgba(10,91,255,0.3))" }}
               />
             </div>
           </motion.div>
 
-          {/* Orbiting node diamonds */}
+          {/* Orbiting node diamonds - reduced floating y-animation to avoid iOS repaint cost */}
           {diamondNodes.map((node, i) => {
             const angleRad = (node.angle - 90) * (Math.PI / 180);
             const x = Math.cos(angleRad) * 195;
@@ -135,18 +134,16 @@ export default function Ecosystem() {
                 <motion.div
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
-                  className="group relative"
+                  className="group relative safari-gpu"
                 >
-                  {/* Diamond frame */}
                   <svg width="88" height="88" viewBox="0 0 88 88" className="absolute -inset-0.5">
-                    <motion.polygon
+                    <polygon
                       points="44,6 78,28 78,60 44,82 10,60 10,28"
                       fill="rgba(10,91,255,0.03)"
                       stroke={node.color}
                       strokeWidth="0.5"
                       strokeDasharray="3 3"
-                      animate={{ opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                      opacity="0.4"
                     />
                   </svg>
                   <div className="relative w-[76px] md:w-[84px] rounded-lg crystal border-white/5 p-2.5 text-center cursor-default">

@@ -14,6 +14,8 @@ const phases = [
   { icon: HiChartBar, title: "Scale", subtitle: "Mở Rộng", desc: "Optimize, grow, and evolve continuously", color: "#0A5BFF" },
 ];
 
+const uid = "dp";
+
 export default function DiamondProcess() {
   return (
     <section id="process" className="section-padding relative overflow-hidden">
@@ -43,14 +45,14 @@ export default function DiamondProcess() {
           {/* SVG connecting lines */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 400">
             <defs>
-              <linearGradient id="procLine" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id={`${uid}procLine`} x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#0A5BFF" />
                 <stop offset="100%" stopColor="#00CFFF" />
               </linearGradient>
             </defs>
             <motion.path
               d="M 100,200 L 240,200 M 280,200 L 360,200 M 400,200 L 480,200 M 520,200 L 600,200 M 640,200 L 720,200"
-              stroke="url(#procLine)"
+              stroke={`url(#${uid}procLine)`}
               strokeWidth="1"
               strokeDasharray="4 6"
               fill="none"
@@ -79,14 +81,14 @@ export default function DiamondProcess() {
                 >
                   <svg width="72" height="72" viewBox="0 0 72 72" className="overflow-visible">
                     <defs>
-                      <linearGradient id={`phaseGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <linearGradient id={`${uid}phaseGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor={phase.color} stopOpacity="0.3" />
                         <stop offset="100%" stopColor={phase.color} stopOpacity="0.1" />
                       </linearGradient>
                     </defs>
                     <motion.polygon
                       points="36,4 66,26 66,46 36,68 6,46 6,26"
-                      fill={`url(#phaseGrad${i})`}
+                      fill={`url(#${uid}phaseGrad${i})`}
                       stroke={phase.color}
                       strokeWidth="0.8"
                       initial={{ pathLength: 0 }}
